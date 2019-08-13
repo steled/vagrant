@@ -1,0 +1,70 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "centos/7"
+
+  config.vm.box_check_update = false
+  config.vm.network "public_network", bridge: "DockerExtern"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.define "development" do |development|
+    development.vm.hostname = "development"
+    development.vm.provider "hyperv" do |hv|
+      hv.vmname = "development_vagrant"
+      hv.cpus = 1
+      hv.memory = 1024
+      hv.maxmemory = 1024
+      hv.mac = "00:15:5D:19:01:86"
+      hv.vm_integration_services = {
+        gastdienstschnittstelle: false,
+        takt: true,
+        #austausch_von_schluesselwertepaaren: true,
+        herunterfahren: true,
+        zeitsynchronisierung: true,
+        vss: true
+      }
+    end
+  end
+
+  config.vm.define "production" do |production|
+    production.vm.hostname = "production"
+    production.vm.provider "hyperv" do |hv|
+      hv.vmname = "production_vagrant"
+      hv.cpus = 1
+      hv.memory = 1024
+      hv.maxmemory = 1024
+      hv.mac = "00:15:5D:19:01:87"
+      hv.vm_integration_services = {
+        gastdienstschnittstelle: false,
+        takt: true,
+        #austausch_von_schluesselwertepaaren: true,
+        herunterfahren: true,
+        zeitsynchronisierung: true,
+        vss: true
+      }
+    end
+  end
+
+  (1..2).each do |i|
+    config.vm.define "worker#{i}" do |worker|
+      worker.vm.hostname = "worker#{i}"
+      worker.vm.provider "hyperv" do |hv|
+        hv.vmname = "worker#{i}_vagrant"
+        hv.cpus = 1
+        hv.memory = 1024
+        hv.maxmemory = 1024
+        hv.mac = "00:15:5D:19:01:9#{i}"
+        hv.vm_integration_services = {
+          gastdienstschnittstelle: false,
+          takt: true,
+          #austausch_von_schluesselwertepaaren: true,
+          herunterfahren: true,
+          zeitsynchronisierung: true,
+          vss: true
+        }
+      end
+    end
+  end
+
+end
