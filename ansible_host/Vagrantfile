@@ -1,0 +1,53 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "centos/7"
+  config.vm.box_version = "1905.1"
+
+  config.vm.box_check_update = false
+  config.vm.network "public_network", bridge: "DockerExtern"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.define "ansible" do |ansible|
+    ansible.vm.hostname = "ansible"
+    ansible.vm.provider "hyperv" do |hv|
+      hv.vmname = "ansible_vagrant"
+      hv.cpus = 1
+      hv.memory = 1024
+      hv.maxmemory = 1024
+      hv.mac = "00:15:5D:19:01:86"
+      hv.vm_integration_services = {
+        gastdienstschnittstelle: false,
+        takt: true,
+        #austausch_von_schluesselwertepaaren: true,
+        herunterfahren: true,
+        zeitsynchronisierung: true,
+        vss: true
+      }
+    end
+    ansible.vm.provision "shell", inline: "sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y"
+#    ansible.vm.provision "shell", inline: "sudo yum update -y"
+    ansible.vm.provision "shell", inline: "sudo yum install ansible-2.8.5-1.el7 -y"
+    ansible.vm.provision "shell", inline: "sudo yum clean all"
+  end
+
+  config.vm.define "worker" do |worker|
+    worker.vm.hostname = "worker"
+    worker.vm.provider "hyperv" do |hv|
+      hv.vmname = "worker_vagrant"
+      hv.cpus = 1
+      hv.memory = 1024
+      hv.maxmemory = 1024
+      hv.mac = "00:15:5D:19:01:87"
+      hv.vm_integration_services = {
+        gastdienstschnittstelle: false,
+        takt: true,
+        #austausch_von_schluesselwertepaaren: true,
+        herunterfahren: true,
+        zeitsynchronisierung: true,
+        vss: true
+      }
+    end
+  end
+end
