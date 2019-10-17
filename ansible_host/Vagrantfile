@@ -26,10 +26,19 @@ Vagrant.configure("2") do |config|
         vss: true
       }
     end
+    ansible.vm.provision "file", source: "./ansible.id_rsa.pub", destination: "/tmp/ansible.id_rsa.pub"
+    ansible.vm.provision "file", source: "./ansible" , destination: "/tmp/ansible"
+    ansible.vm.provision "shell", inline: "cat /tmp/ansible.id_rsa.pub >> $HOME/.ssh/authorized_keys", privileged: false
     ansible.vm.provision "shell", inline: "sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y"
 #    ansible.vm.provision "shell", inline: "sudo yum update -y"
     ansible.vm.provision "shell", inline: "sudo yum install ansible-2.8.5-1.el7 -y"
     ansible.vm.provision "shell", inline: "sudo yum clean all"
+    ansible.vm.synced_folder ".", "/vagrant", disabled: true
+    ansible.vm.provision "ansible_local" do |ansible|
+      ansible.provisioning_path = "/tmp/ansible"
+      ansible.playbook = "ansible_host.yml"
+      ansible.limit = "localhost"
+    end
   end
 
   config.vm.define "worker" do |worker|
@@ -49,5 +58,10 @@ Vagrant.configure("2") do |config|
         vss: true
       }
     end
+    worker.vm.provision "file", source: "./ansible.id_rsa.pub", destination: "/tmp/ansible.id_rsa.pub"
+    worker.vm.provision "shell", inline: "cat /tmp/ansible.id_rsa.pub >> $HOME/.ssh/authorized_keys", privileged: false
+    worker.vm.provision "shell", inline: "sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y"
+#    worker.vm.provision "shell", inline: "sudo yum update -y"
+    worker.vm.provision "shell", inline: "sudo yum clean all"
   end
 end

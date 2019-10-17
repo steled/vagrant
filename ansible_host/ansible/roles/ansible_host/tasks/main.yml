@@ -1,0 +1,8 @@
+---
+# file: main.yml
+- include_tasks: config.yml
+
+- name: copy inventory file
+  copy:
+    src: /tmp/ansible/roles/ansible_host/files/inventory
+    dest: /etc/ansible/hosts

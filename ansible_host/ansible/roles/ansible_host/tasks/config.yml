@@ -1,0 +1,31 @@
+---
+# file: config.yml
+- name: set inventory file
+  lineinfile:
+    path: /etc/ansible/ansible.cfg
+    regexp: "^#inventory      = /etc/ansible/hosts"
+    line: "inventory      = /etc/ansible/hosts"
+    state: present
+    backrefs: yes
+    backup: yes
+  become: yes
+
+- name: disable SSH key host checking
+  lineinfile:
+    path: /etc/ansible/ansible.cfg
+    regexp: "^#host_key_checking = False"
+    line: "host_key_checking = False"
+    state: present
+    backrefs: yes
+    backup: yes
+  become: yes
+
+- name: set private key path
+  lineinfile:
+    path: /etc/ansible/ansible.cfg
+    regexp: "^#private_key_file = /path/to/file"
+    line: "private_key_file = ~/.ssh/ansible.id_rsa"
+    state: present
+    backrefs: yes
+    backup: yes
+  become: yes
