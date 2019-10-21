@@ -1,5 +1,5 @@
 ---
 # file: ansible_host.yml
-- hosts: localhost
+- hosts: ansible
   roles:
     - ansible_host

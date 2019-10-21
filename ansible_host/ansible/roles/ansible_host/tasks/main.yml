@@ -6,3 +6,4 @@
   copy:
     src: /tmp/ansible/roles/ansible_host/files/inventory
     dest: /etc/ansible/hosts
+  become: yes
