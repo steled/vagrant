@@ -10,6 +10,16 @@
     backup: yes
   become: yes
 
+- name: set roles path
+  lineinfile:
+    path: /etc/ansible/ansible.cfg
+    regexp: "^#roles_path    = /etc/ansible/roles"
+    line: "roles_path    = /tmp/ansible/roles"
+    state: present
+    backrefs: yes
+    backup: yes
+  become: yes
+
 - name: disable SSH key host checking
   lineinfile:
     path: /etc/ansible/ansible.cfg
