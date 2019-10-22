@@ -1,0 +1,5 @@
+---
+# file: git.yml
+- hosts: worker
+  roles:
+    - git
