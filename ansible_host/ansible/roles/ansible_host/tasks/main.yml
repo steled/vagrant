@@ -1,6 +1,7 @@
 ---
-# file: main.yml
-- include_tasks: config.yml
+# file: tasks/main.yml
+- name: include config.yml
+  include_tasks: config.yml
 
 - name: copy inventory file
   copy:

@@ -1,5 +1,5 @@
 ---
-# file: config.yml
+# file: tasks/config.yml
 - name: set inventory file
   lineinfile:
     path: /etc/ansible/ansible.cfg

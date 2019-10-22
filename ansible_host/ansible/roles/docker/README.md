@@ -5,9 +5,9 @@ This role installs docker and all of its dependencies.
 ## Usage
 `ansible-playbook /tmp/ansible/docker.yml -b`
 
-## Desription
+## Description
 - add docker gpg key and repository 
-- install docker, docker-cli, containerd.io,
+- install docker, docker-cli, containerd.io
 - ensure that docker is started and enabled at boot
 - install docker-compose if wanted
 - configure user for docker if wanted

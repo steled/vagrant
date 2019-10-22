@@ -1,4 +1,5 @@
 ---
+# file: tasks/docker-users.yml
 - name: Ensure docker users are added to the docker group.
   user:
     name: "{{ item }}"
