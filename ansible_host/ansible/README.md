@@ -6,6 +6,8 @@ This is a Vagrant project that deploys 2 Hyper-V VMs for working with ansible.
 `vagrant up --parallel`
 
 ## Description
+- update `ansible.id_rsa` and `ansible.id_rsa.pub` with own keys
+- update `roles/git/defaults/main.yml` with own config values
 - deploys one Hyper-V VM called `ansible` based on Centos 7
 - deploys one Hyper-V VM called `worker` based on Centos 7
 
