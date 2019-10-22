@@ -1,0 +1,10 @@
+---
+# file: tasks/main.yml
+- name: install package git-core
+  package:
+    name:
+      - git-core
+  become: yes
+
+- name: include config.yml
+  include_tasks: config.yml
