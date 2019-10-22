@@ -1,0 +1,4 @@
+---
+# file: defaults/main.yml
+user_name: "<git_username>"
+user_email: "<git_user_email>"
