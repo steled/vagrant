@@ -1,4 +1,4 @@
 */.vagrant
-ansible.id_rsa
-ansible.id_rsa.pub
-ansible/roles/git/defaults/main.yml
+ansible_host/ansible.id_rsa
+ansible_host/ansible.id_rsa.pub
+ansible_host/ansible/roles/git/defaults/main.yml
