@@ -6,4 +6,3 @@ sudo sh -c 'echo "/dev/sdb1       /ext                            ext4    defaul
 (echo n; echo p; echo 1; echo ; echo ; echo w) | sudo fdisk /dev/sdb
 sudo mkfs.ext4 /dev/sdb1
 sudo mount -a
-sudo mkdir /ext/repo
