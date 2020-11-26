@@ -10,6 +10,11 @@ if (( $EUID != 0 )); then
   exit
 fi
 
+if [ -z "$1" ] || [ -z "$2" ]; then
+  echo "TOKEN or HASH  not set"
+  exit
+fi
+
 kubeadm join $MASTER_IP:6443 --token $TOKEN --discovery-token-ca-cert-hash sha256:$HASH &
 
 bg_pid=$!
